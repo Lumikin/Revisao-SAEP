@@ -12,6 +12,25 @@ export default function ClienteForm({ clienteEditando, onSalvar, onCancelar }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSalvar();
+    setFormData({
+      nome: "",
+      cpf: "",
+      telefone: "",
+      email: "",
+    });
+    onCancelar();
+  };
+  const handleCancel = e => {
+    setFormData({
+      nome: "",
+      cpf: "",
+      telefone: "",
+      email: "",
+    });
+  };
   return (
     <div>
       <h5>
@@ -57,7 +76,7 @@ export default function ClienteForm({ clienteEditando, onSalvar, onCancelar }) {
             Cancelar
           </button>
         )}
-        <button type="button" onClick={() => onSalvar(formData)}>
+        <button type="button" onClick={handleSubmit}>
           Salvar cliente
         </button>
       </form>

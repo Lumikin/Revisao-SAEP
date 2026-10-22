@@ -2,30 +2,6 @@ import { useState } from "react";
 import ClienteForm from "../components/ClienteFrom";
 
 export default function ClientesPage() {
-  const [clientes, setClientes] = useState([]);
-  const [clienteEditando, setClienteEditando] = useState(null);
-  const handleCancelarEdicao = () => {
-    setClienteEditando(null);
-  };
-  const handleSalvar = dadosClientes => {
-    if (clienteEditando) {
-      setClientes(clientes =>
-        clientes.map(cliente =>
-          cliente.id == clienteEditando.id
-            ? { ...dadosClientes, id: clienteEditando.id }
-            : cliente,
-        ),
-      );
-      setClienteEditando(null);
-    } else {
-      const novoCliente = {
-        ...dadosClientes,
-        id: Date.now(),
-      };
-
-      setClientes(clientes => [...clientes, novoCliente]);
-    }
-  };
   const clienteMockados = [
     {
       id: 1,
@@ -49,6 +25,33 @@ export default function ClientesPage() {
       email: "raissa@gmail.com",
     },
   ];
+
+  const [clientes, setClientes] = useState(clienteMockados);
+  const [clienteEditando, setClienteEditando] = useState(null);
+
+  const handleCancelarEdicao = () => {
+    setClienteEditando(null);
+  };
+
+  const handleSalvar = dadosClientes => {
+    if (clienteEditando) {
+      setClientes(clientes =>
+        clientes.map(cliente =>
+          cliente.id == clienteEditando.id
+            ? { ...dadosClientes, id: clienteEditando.id }
+            : cliente,
+        ),
+      );
+      setClienteEditando(null);
+    } else {
+      const novoCliente = {
+        ...dadosClientes,
+        id: Date.now(),
+      };
+
+      setClientes(clientes => [...clientes, novoCliente]);
+    }
+  };
 
   return (
     <div>
