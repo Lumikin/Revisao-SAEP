@@ -14,7 +14,7 @@ export default function ClienteForm({ clienteEditando, onSalvar, onCancelar }) {
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSalvar();
+    onSalvar(formData);
     setFormData({
       nome: "",
       cpf: "",
