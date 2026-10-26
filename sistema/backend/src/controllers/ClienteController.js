@@ -7,12 +7,14 @@ class ClienteController {
       let clientes;
       if (termo && termo.trim() != "") {
         const busca = `%${termo.trim()}%`;
-        clientes = await pool.query(
+        const [rows] = await pool.query(
           `SELECT * FROM clientes WHERE nome LIKE ? OR email LIKE ? ORDER BY id DESC;`,
           [busca, busca],
         );
+        clientes = rows;
       } else {
-        clientes = await pool.query(`SELECT * FROM clientes ORDER BY id`);
+        const [rows] = await pool.query(`SELECT * FROM clientes ORDER BY id`);
+        clientes = rows;
       }
       return res.json(clientes);
     } catch (error) {
