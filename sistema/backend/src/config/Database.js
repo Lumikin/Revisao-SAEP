@@ -24,7 +24,7 @@ class Database {
       console.log("Conexão com o MySQL estabelecida com sucesso");
       conn.release();
     } catch (error) {
-      console.error("Falha ao conectar com o MYSQL", error.message);
+      console.error("Falha ao conectar com o MYSQL", error);
     }
   }
 }
