@@ -1,8 +1,8 @@
 ## Banco de dados
 
-![Diagrama de dados](docs/backend/oficina_db.png)
+![Diagrama de dados](./backend/oficina_db.png)
 
-_[Banco de dados](./docs/backend/database.sql)_
+_[Banco de dados](./backend/database.sql)_
 
 ### Clientes
 
