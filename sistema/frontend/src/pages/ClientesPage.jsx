@@ -1,39 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClienteForm from "../components/ClienteFrom";
 
 export default function ClientesPage() {
-  const clienteMockados = [
-    {
-      id: 1,
-      nome: "Maycon",
-      telefone: "(19)12345-1234",
-      cpf: "123.456.789-10",
-      email: "mycon@gmail.com",
-    },
-    {
-      id: 2,
-      nome: "Lucas",
-      telefone: "(19)54321-1324",
-      cpf: "123.456.778-10",
-      email: "lucas@gmail.com",
-    },
-    {
-      id: 3,
-      nome: "Raissa",
-      telefone: "(19)12345-5689",
-      cpf: "155.456.789-11",
-      email: "raissa@gmail.com",
-    },
-  ];
+  // const clienteMockados = [
+  //   {
+  //     id: 1,
+  //     nome: "Maycon",
+  //     telefone: "(19)12345-1234",
+  //     cpf: "123.456.789-10",
+  //     email: "mycon@gmail.com",
+  //   },
+  //   {
+  //     id: 2,
+  //     nome: "Lucas",
+  //     telefone: "(19)54321-1324",
+  //     cpf: "123.456.778-10",
+  //     email: "lucas@gmail.com",
+  //   },
+  //   {
+  //     id: 3,
+  //     nome: "Raissa",
+  //     telefone: "(19)12345-5689",
+  //     cpf: "155.456.789-11",
+  //     email: "raissa@gmail.com",
+  //   },
+  // ];
 
-  const [clientes, setClientes] = useState(clienteMockados);
+  const [clientes, setClientes] = useState([]);
   const [clienteEditando, setClienteEditando] = useState(null);
 
   const handleCancelarEdicao = () => {
     setClienteEditando(null);
   };
 
-  const handleSalvar = dadosClientes => {
+  const handleSalvar = async dadosClientes => {
     if (clienteEditando) {
       setClientes(clientes =>
         clientes.map(cliente =>
@@ -42,16 +42,42 @@ export default function ClientesPage() {
             : cliente,
         ),
       );
-      setClienteEditando(null);
     } else {
-      const novoCliente = {
-        ...dadosClientes,
-        id: Date.now(),
-      };
+      try {
+        const response = await fetch("http://localhost:3001/api/clientes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dadosClientes),
+        });
 
-      setClientes(clientes => [...clientes, novoCliente]);
+        const data = await response.json();
+
+        const novoCliente = {
+          ...dadosClientes,
+          id: data.id,
+        };
+        setClientes(clientes => [...clientes, novoCliente]);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      }
     }
   };
+
+  useEffect(() => {
+    const buscaClientes = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/clientes");
+        const data = await response.json();
+        setClientes(data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      }
+    };
+
+    buscaClientes();
+  }, []);
 
   return (
     <div>

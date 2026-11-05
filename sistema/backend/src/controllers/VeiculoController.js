@@ -4,7 +4,7 @@ class VeiculoController {
   async listar(req, res) {
     try {
       const [rows] =
-        await pool.query(`select v.id, v.modelo, v.marca, v.placa, v.cliente_id, c.nome AS NomeCliente
+        await pool.query(`select v.id, v.modelo, v.marca, v.placa, v.ano, v.cliente_id, c.nome AS NomeCliente
                             from veiculos v join clientes c
                             on v.cliente_id = c.id
                             order by v.id desc;`);
