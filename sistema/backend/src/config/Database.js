@@ -8,7 +8,7 @@ class Database {
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "1234",
       port: process.env.DB_PORT || "3306",
-      database: process.env.DB_NAME || "oficina_db",
+      database: process.env.DB_NAME || "oficina_db_i2hs",
       waitForConnections: true,
       connectionLimit: 10,
       queueLimit: 0,

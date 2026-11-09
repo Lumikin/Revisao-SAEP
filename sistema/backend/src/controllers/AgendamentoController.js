@@ -45,6 +45,39 @@ class AgendamentoController {
       });
     }
   }
+  async criar(req, res) {
+    const { data_agendamento, descricao_servico, veiculo_id, status } =
+      req.body;
+
+    if (!data_agendamento || !descricao_servico || !veiculo_id) {
+      return res.status(400).json({
+        message: "Todos os dados são obrigatorios",
+      });
+    }
+
+    try {
+      const [result] = await pool.query(
+        `INSERT INTO agendamentos (data_agendamento, descricao_servico, veiculo_id, status) VALUES (?,?,?,?);`,
+        [
+          data_agendamento,
+          descricao_servico,
+          parseInt(veiculo_id, 10),
+          status || "Agendado",
+        ],
+      );
+
+      return res.status(201).json({
+        message: "Agendamento cadastrado com sucesso",
+        id: result.insertId,
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        message: "Erro ao cadastrar agendamento",
+        errorMessage: error.message,
+      });
+    }
+  }
 }
 
 export default new AgendamentoController();

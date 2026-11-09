@@ -102,7 +102,7 @@ export default function AgendamentoPage() {
   useState(() => {
     const buscaAgendamento = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/agendametos");
+        const response = await fetch("http://localhost:3001/api/agendamentos");
         const data = await response.json();
         setAgendamentos(data);
       } catch (error) {

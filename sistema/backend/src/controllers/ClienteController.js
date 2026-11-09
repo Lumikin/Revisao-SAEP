@@ -16,14 +16,13 @@ class ClienteController {
         const [rows] = await pool.query(`SELECT * FROM clientes ORDER BY id`);
         clientes = rows;
       }
-      
+
       const clientesDescriptografados = clientes.map(cliente => ({
         ...cliente, //Persiste os dados do cliente
         cpf: cryptoService.decrypt(cliente.cpf),
       }));
 
       return res.json(clientesDescriptografados);
-    
     } catch (error) {
       console.error("Erro ao listar o cliente: ", error);
       return res.status(500).json({

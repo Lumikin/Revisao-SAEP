@@ -15,7 +15,10 @@ router.put("/clientes/:id", (req, res) =>
 
 router.get("/veiculos", (req, res) => VeiculoController.listar(req, res));
 
-router.get("/agendametos", (req, res) =>
+router.get("/agendamentos", (req, res) =>
   AgendamentoController.listar(req, res),
+);
+router.post("/agendamentos", (req, res) =>
+  AgendamentoController.criar(req, res),
 );
 export default router;
