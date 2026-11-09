@@ -13,7 +13,7 @@ class AgendamentoController {
       }
 
       const sql = `select 
-	                  a.id, a.data_agendamento, a.descricao_servico, a.status, c.id AS ID_CLIENTE, c.nome as NOME_CLIENTE, c.cpf as CPF_CLIENTE, c.telefone as TELEFONE_CLIENTE, c.email as EMAIL_CLIENTE, v.id as ID_VEICULO, v.placa as PLACA_VEICULO, v.modelo as MODELO_VEICULO, v.marca as MARCA_VEICULO, v.ano as ANO_VEICULO
+	                  a.id, a.data_agendamento, a.descricao_servico, a.status, c.id AS id_cliente, c.nome as nome_cliente, c.cpf as cpf_cliente, c.telefone as telefone_cliente, c.email as email_cliente, v.id as id_veiculo, v.placa as placa_veiculo, v.modelo as modelo_veiculo, v.marca as marca_veiculo, v.ano as ano_veiculo
                     from agendamentos a 
                       join veiculos v 
 	                      on a.veiculo_id = v.id
