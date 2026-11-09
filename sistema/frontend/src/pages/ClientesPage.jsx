@@ -1,31 +1,31 @@
 import { useState, useEffect } from "react";
 import ClienteForm from "../components/ClienteFrom";
 
-export default function ClientesPage() {
-  // const clienteMockados = [
-  //   {
-  //     id: 1,
-  //     nome: "Maycon",
-  //     telefone: "(19)12345-1234",
-  //     cpf: "123.456.789-10",
-  //     email: "mycon@gmail.com",
-  //   },
-  //   {
-  //     id: 2,
-  //     nome: "Lucas",
-  //     telefone: "(19)54321-1324",
-  //     cpf: "123.456.778-10",
-  //     email: "lucas@gmail.com",
-  //   },
-  //   {
-  //     id: 3,
-  //     nome: "Raissa",
-  //     telefone: "(19)12345-5689",
-  //     cpf: "155.456.789-11",
-  //     email: "raissa@gmail.com",
-  //   },
-  // ];
+// const clienteMockados = [
+//   {
+//     id: 1,
+//     nome: "Maycon",
+//     telefone: "(19)12345-1234",
+//     cpf: "123.456.789-10",
+//     email: "mycon@gmail.com",
+//   },
+//   {
+//     id: 2,
+//     nome: "Lucas",
+//     telefone: "(19)54321-1324",
+//     cpf: "123.456.778-10",
+//     email: "lucas@gmail.com",
+//   },
+//   {
+//     id: 3,
+//     nome: "Raissa",
+//     telefone: "(19)12345-5689",
+//     cpf: "155.456.789-11",
+//     email: "raissa@gmail.com",
+//   },
+// ];
 
+export default function ClientesPage() {
   const [clientes, setClientes] = useState([]);
   const [clienteEditando, setClienteEditando] = useState(null);
 
@@ -51,9 +51,7 @@ export default function ClientesPage() {
           },
           body: JSON.stringify(dadosClientes),
         });
-
         const data = await response.json();
-
         const novoCliente = {
           ...dadosClientes,
           id: data.id,
