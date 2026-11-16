@@ -78,6 +78,37 @@ class AgendamentoController {
       });
     }
   }
+  async atualizar(req, res) {
+    const { id } = req.params;
+    const { nova_data } = req.body;
+
+    if (!nova_data) {
+      return res.status(400).json({
+        error: "Informe a nova data para atualização.",
+      });
+    }
+    try {
+      const [result] = await pool.query(
+        `UPDATE agendamentos SET data_agendamento = ? WHERE id =?  `,
+        [nova_data, id],
+      );
+      console.log("Dabatase: \n", result);
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          error: "Agendamento não encontrado.",
+        });
+      }
+      return res.status(200).json({
+        message: "Data do agendamento alterada com sucesso.",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        message: "Erro no servidor",
+        error: error.message,
+      });
+    }
+  }
 }
 
 export default new AgendamentoController();
