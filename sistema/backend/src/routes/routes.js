@@ -14,9 +14,13 @@ router.put("/clientes/:id", (req, res) =>
 );
 
 router.get("/veiculos", (req, res) => VeiculoController.listar(req, res));
+router.post("/veiculos", (req, res) => VeiculoController.criar(req, res));
 
 router.get("/agendamentos", (req, res) =>
   AgendamentoController.listar(req, res),
+);
+router.patch("/agendamentos/:id", (req, res) =>
+  AgendamentoController.atualizar(req, res),
 );
 router.post("/agendamentos", (req, res) =>
   AgendamentoController.criar(req, res),

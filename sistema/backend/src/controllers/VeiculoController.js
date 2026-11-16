@@ -17,6 +17,32 @@ class VeiculoController {
       });
     }
   }
+  async criar(req, res) {
+    const { placa, modelo, marca, ano, cliente_id } = req.body;
+    if (!placa || !modelo || !marca || !ano || !cliente_id) {
+      return res.status(400).json({
+        message: "Todos os campos são obrigatorios",
+      });
+    }
+
+    try {
+      const [result] = await pool.query(
+        `INSERT INTO veiculos (placa, modelo, marca, ano, cliente_id) VALUES (?,?,?,?,?)`,
+        [placa, modelo, marca, ano, cliente_id],
+      );
+
+      return res.status(201).json({
+        message: "Veículo cadastrado com sucesso",
+        id: result.insertId,
+      });
+    } catch (error) {
+      console.error("Erro ao cadastrar veículo", error);
+      return res.status(500).json({
+        message: "Erro ao cadastrar veículo",
+        error: error.message,
+      });
+    }
+  }
 }
 
 export default new VeiculoController();
